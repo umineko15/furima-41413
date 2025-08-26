@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  get 'posts/index'
-  root to: 'posts#index'
+  get 'items/index'
+  root to: 'items#index'
 end
