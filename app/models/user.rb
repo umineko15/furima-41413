@@ -16,10 +16,9 @@ class User < ApplicationRecord
       message: 'is invalid. Include both letters and numbers'
     }
 
-  validates :birthday, presence: true
-
   validates_confirmation_of :password
 
+  validates :birthday, presence: true
 
   validates :last_name,  presence: true
 
