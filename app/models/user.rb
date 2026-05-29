@@ -16,7 +16,10 @@ class User < ApplicationRecord
       message: 'is invalid. Include both letters and numbers'
     }
 
+  validates :birthday, presence: true
+
   validates_confirmation_of :password
+
 
   validates :last_name,  presence: true
 
@@ -50,5 +53,4 @@ class User < ApplicationRecord
       message: 'is invalid. Input full-width katakana characters',
     }
 
-  validates :birthday, presence: true
 end
