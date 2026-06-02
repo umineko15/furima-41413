@@ -4,19 +4,11 @@ class User < ApplicationRecord
          
   validates :nickname, presence: true
 
-  validates :email,
-    format: {
-      with: /\A.+@.+\z/,
-      allow_blank: true
-    }
-
   validates :password,
     format: {
       with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/,
       message: 'is invalid. Include both letters and numbers'
     }
-
-  validates_confirmation_of :password
 
   validates :birthday, presence: true
 
