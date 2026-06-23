@@ -28,7 +28,7 @@ RSpec.describe User, type: :model do
         expect(user2.errors.full_messages).to include "Email has already been taken"
       end
       it 'emailに@が含まれていないと登録できない' do
-        user = FactoryBot.build(:user, email: 'testexample.com')
+        user.email = 'testexample.com'
         user.valid?
         expect(user.errors.full_messages).to include 'Email is invalid'
       end
