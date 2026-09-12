@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_item, only: [:edit, :update]
+  before_action :ensure_current_user, only: [:edit, :update]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -13,13 +15,36 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to @item
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def create
     @item = Item.new(item_params)
+
     if @item.save
       redirect_to root_path
     else
-      puts @item.errors.full_messages
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  def ensure_current_user
+    unless @item.user == current_user
+      redirect_to root_path
     end
   end
 
@@ -33,7 +58,7 @@ class ItemsController < ApplicationController
       :shipping_fee_id,
       :prefecture_id,
       :scheduled_delivery_id,
-      :price,
+      :price
     ).merge(user_id: current_user.id)
   end
 end
