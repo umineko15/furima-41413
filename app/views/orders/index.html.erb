@@ -1,3 +1,4 @@
+<%= include_gon %>
 <%= render "shared/second-header"%>
 
 <div class='transaction-contents'>
@@ -31,7 +32,16 @@
     </div>
     <%# /支払額の表示 %>
 
-    <%= form_with id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
+    <%= form_with model: @order, url: orders_path(item_id: @item.id), id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>
+      <% if @order.errors.any? || @address.errors.any? %>
+        <div class="error-alert">
+          <ul>
+            <% (@order.errors.full_messages + @address.errors.full_messages).each do |message| %>
+              <li class="error-message"><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     <%# カード情報の入力 %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
@@ -100,7 +110,7 @@
           <label class="form-text">番地</label>
           <span class="indispensable">必須</span>
         </div>
-        <%= f.text_field :address, class:"input-default", id:"addresses", placeholder:"例）青山1-1-1"%>
+        <%= f.text_field :address, class:"input-default", id:"addresses", placeholder:"例）青山1-1-1", value: @address.address %>
       </div>
       <div class="form-group">
         <div class='form-text-wrap'>
