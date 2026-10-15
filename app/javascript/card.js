@@ -27,13 +27,8 @@ const pay = () => {
       if (response.error) {
         console.error(response.error);
 
-        const errorMessage = document.getElementById('card-error-message');
-
-        if (errorMessage) {
-          errorMessage.textContent = 'カード情報を確認してください。';
-        }
-
         if (submitButton) submitButton.disabled = false;
+        form.submit();
         return;
       }
 
