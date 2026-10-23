@@ -41,7 +41,8 @@ class OrderAddress
     ActiveRecord::Base.transaction do
       order = Order.create!(
         user_id: user_id,
-        item_id: item_id
+        item_id: item_id,
+        token: token
       )
 
       Address.create!(
