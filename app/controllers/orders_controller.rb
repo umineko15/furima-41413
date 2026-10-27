@@ -63,26 +63,26 @@ class OrdersController < ApplicationController
       render :index, status: :unprocessable_entity
     end
   end
-end
 
-private
+  private
 
-def order_address_params
-  params.require(:order_address).permit(
-    :postal_code,
-    :prefecture_id,
-    :city,
-    :address,
-    :building_name,
-    :phone_number
-  )
-end
+  def order_address_params
+    params.require(:order_address).permit(
+      :postal_code,
+      :prefecture_id,
+      :city,
+      :address,
+      :building_name,
+      :phone_number
+    )
+  end
 
-def pay_item
-  Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-  Payjp::Charge.create(
-    amount: @item.price,
-    card: @order_address.token,
-    currency: "jpy"
-  )
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: @order_address.token,
+      currency: "jpy"
+    )
+  end
 end
