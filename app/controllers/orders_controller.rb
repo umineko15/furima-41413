@@ -1,32 +1,16 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
+  before_action :set_item, only: [:index, :create]
+  before_action :check_item, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-
-    if @item.user == current_user
-      redirect_to root_path
-      return
-    end
-
-    if @item.order.present?
-      redirect_to root_path
-      return
-    end
-
     @order_address = OrderAddress.new
   end
 
 
   def create
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
-
-    if @item.user == current_user || @item.order.present?
-      redirect_to root_path
-      return
-    end
 
     @order_address = OrderAddress.new(order_address_params)
     @order_address.user_id = current_user.id
@@ -65,6 +49,16 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
+  def check_item
+    if @item.user == current_user || @item.order.present?
+      redirect_to root_path
+    end
+  end
 
   def order_address_params
     params.require(:order_address).permit(
