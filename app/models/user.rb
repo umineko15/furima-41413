@@ -1,6 +1,7 @@
 class User < ApplicationRecord
-  belongs_to :item
-  
+  has_many :items
+  has_many :orders
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          

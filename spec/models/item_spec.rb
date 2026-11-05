@@ -28,31 +28,32 @@ RSpec.describe Item, type: :model do
       it 'category_idが空では出品できない' do
         item.category_id = ''
         item.valid?
-        expect(item.errors.full_messages).to include "category_id can't be blank"
+        expect(item.errors.full_messages).to include "Category can't be blank"
       end
       it 'condition_idが空では出品できない' do
         item.condition_id = ''
         item.valid?
-        expect(item.errors.full_messages).to include "condition_id can't be blank"
+        expect(item.errors.full_messages).to include "Condition can't be blank"
       end
       it 'shipping_fee_idが空では出品できない' do
         item.shipping_fee_id = ''
         item.valid?
-        expect(item.errors.full_messages).to include "shipping_fee_id can't be blank"
+        expect(item.errors.full_messages).to include "Shipping fee can't be blank"
       end
       it 'prefecture_idが空では出品できない' do
         item.prefecture_id = ''
         item.valid?
-        expect(item.errors.full_messages).to include "prefecture_id can't be blank"
+        expect(item.errors.full_messages).to include "Prefecture can't be blank"
       end
       it 'scheduled_delivery_idが空では出品できない' do
         item.scheduled_delivery_id = ''
         item.valid?
-        expect(item.errors.full_messages).to include "scheduled_delivery_id can't be blank"
+        expect(item.errors.full_messages).to include "Scheduled delivery can't be blank"
+      end
       it 'priceが空では出品できない' do
         item.price = ''
         item.valid?
-        expect(item.errors.full_messages).to include "price can't be blank"
+        expect(item.errors.full_messages).to include "Price can't be blank"
       end
       it '価格が300円未満では出品できない' do
         item.price = 299
