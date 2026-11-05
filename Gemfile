@@ -85,3 +85,7 @@ gem 'image_processing', '~> 1.2'
 gem 'payjp'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'gon'
+
+group :production do
+  gem 'pg'
+end
