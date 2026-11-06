@@ -1,13 +1,20 @@
-const itemPrice = document.getElementById("item-price");
+document.addEventListener("turbo:load", () => {
+  const itemPrice = document.getElementById("item-price");
+  const taxPrice = document.getElementById("add-tax-price");
+  const profit = document.getElementById("profit");
 
-if (itemPrice) {
-  itemPrice.addEventListener("input", () => {
+  if (!itemPrice || !taxPrice || !profit) return;
+
+  const calculatePrice = () => {
     const price = Number(itemPrice.value);
 
     const tax = Math.floor(price * 0.1);
-    const profit = price - tax;
+    const profitAmount = price - tax;
 
-    document.getElementById("add-tax-price").textContent = tax;
-    document.getElementById("profit").textContent = profit;
-  });
-}
+    taxPrice.textContent = tax;
+    profit.textContent = profitAmount;
+  };
+
+  itemPrice.addEventListener("input", calculatePrice);
+  calculatePrice();
+});
