@@ -1,4 +1,4 @@
-document.addEventListener("turbo:load", () => {
+document.addEventListener("turbo:render", () => {
   console.log("turbo:load が実行されました");
   const itemPrice = document.getElementById("item-price");
   const taxPrice = document.getElementById("add-tax-price");
