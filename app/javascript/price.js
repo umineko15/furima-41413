@@ -1,15 +1,9 @@
 document.addEventListener("turbo:render", () => {
-  console.log("turbo:load が実行されました");
   const itemPrice = document.getElementById("item-price");
   const taxPrice = document.getElementById("add-tax-price");
   const profit = document.getElementById("profit");
 
-  if (!itemPrice || !taxPrice || !profit) {
-    console.log("価格計算に必要なHTML要素が見つかりません");
-    return;
-  }
-
-  console.log("価格計算の準備ができました");
+  if (!itemPrice || !taxPrice || !profit) return;
 
   const calculatePrice = () => {
     const price = Number(itemPrice.value);
